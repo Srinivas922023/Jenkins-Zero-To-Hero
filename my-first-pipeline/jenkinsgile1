@@ -1,19 +1,34 @@
 pipeline {
-    agent {
-        docker { image 'node:latest' }
+  agent none
+  stages {
+    stage('Back-end') {
+      agent {
+        docker { image 'maven:3.8.1-adoptopenjdk-11' }
+      }
+  
+      steps {
+        sh 'mvn --version'
+      }
+      
     }
-    stages {
-        stage('test') {
-            steps {
-                sh 'node --version'
-            }
-        }
+      
+    stage('Front-end') {
+      agent {
+        docker { image 'node:16-alpine' }
+      }
+      
+      steps {
+        sh 'node --version'
+      }
     }
-    stages {
- agent {
-        docker { image 'mysql:latest' }
+stage('Front-end') {
+      agent {
+        docker { 'mysql:latest' }
+      }
+      
+      steps {
+        sh 'mysql --version'
+      }
     }
-steps {
-                sh 'mysql --version'
-            }
+  }
 }
