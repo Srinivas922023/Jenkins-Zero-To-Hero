@@ -5,13 +5,26 @@ pipeline {
       agent {
         docker { image 'maven:3.8.1-adoptopenjdk-11' }
       }
+      stage('Build and Push Docker Image') {
+      environment {
+        DOCKER_IMAGE = "srinivas922023/ultimate-cicd:${BUILD_NUMBER}"
+         DOCKERFILE_LOCATION = "java-maven-sonar-argocd-helm-k8s/spring-boot-app/Dockerfile"
+        REGISTRY_CREDENTIALS = credentials('docker-hub')
+      }
       steps {
         sh 'mvn --version'
       }
+      
     }
     stage('Front-end') {
       agent {
         docker { image 'node:16-alpine' }
+      }
+      stage('Build and Push Docker Image') {
+      environment {
+        DOCKER_IMAGE = "srinivas922023/ultimate-cicd:${BUILD_NUMBER}"
+         DOCKERFILE_LOCATION = "java-maven-sonar-argocd-helm-k8s/spring-boot-app/Dockerfile"
+        REGISTRY_CREDENTIALS = credentials('docker-hub')
       }
       steps {
         sh 'node --version'
