@@ -11,12 +11,7 @@ pipeline {
       }
       
     }
-      stage('Build and Push Docker Image') {
-      environment {
-        DOCKER_IMAGE = "srinivas922023/ultimate-cicd:${BUILD_NUMBER}"
       
-        REGISTRY_CREDENTIALS = credentials('docker-hub')
-      }
     stage('Front-end') {
       agent {
         docker { image 'node:16-alpine' }
