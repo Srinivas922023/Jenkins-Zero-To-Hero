@@ -9,4 +9,11 @@ pipeline {
             }
         }
     }
+    stages {
+ agent {
+        docker { image 'mysql:latest' }
+    }
+steps {
+                sh 'mysql --version'
+            }
 }
